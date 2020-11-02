@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,8 +15,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.entities.Department;
+import model.services.DepartmentService;
 
 public class DepartmentListController implements Initializable {
+	private DepartmentService departmentService;
+
 	@FXML
 	private TableView<Department> tbDepartment;
 
@@ -25,6 +31,7 @@ public class DepartmentListController implements Initializable {
 
 	@FXML
 	private Button btNew;
+	private ObservableList<Department> obsListDepartment;
 
 	@FXML
 	public void onBtNewAction() {
@@ -42,6 +49,10 @@ public class DepartmentListController implements Initializable {
 		resizeTable();
 	}
 
+	public void setDepartmentService(DepartmentService departmentService) {
+		this.departmentService = departmentService;
+	}
+
 	/**
 	 * Método para redimensionar a tabela conforme o tamanho da tela principal.
 	 */
@@ -50,4 +61,16 @@ public class DepartmentListController implements Initializable {
 
 		tbDepartment.prefHeightProperty().bind(stage.heightProperty());
 	}
+
+	public void updateTableView() {
+		if (departmentService == null) {
+			throw new IllegalStateException("Service was null");
+		}
+
+		List<Department> listDepartment = departmentService.findAll();
+		obsListDepartment = FXCollections.observableArrayList(listDepartment);
+
+		tbDepartment.setItems(obsListDepartment);
+	}
+
 }
