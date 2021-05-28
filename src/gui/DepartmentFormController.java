@@ -3,16 +3,23 @@ package gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import db.DbException;
+import gui.util.Alerts;
 import gui.util.Constraints;
+import gui.util.Utils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Department;
+import model.services.DepartmentService;
 
 public class DepartmentFormController implements Initializable {
 	private Department departmentEntity;
+	private DepartmentService departmentService;
 
 	@FXML
 	private TextField tfId;
@@ -33,24 +40,38 @@ public class DepartmentFormController implements Initializable {
 		this.departmentEntity = departmentEntity;
 	}
 
-	@FXML
-	public void onBtnSaveAction() {
-		System.out.println("onBtnSaveAction");
+	public void setDepartmentService(DepartmentService departmentService) {
+		this.departmentService = departmentService;
 	}
 
 	@FXML
-	public void onBtnCancelAction() {
-		System.out.println("onBtnCancelAction");
+	public void onBtnSaveAction(ActionEvent event) {
+		if (departmentEntity == null) {
+			throw new IllegalStateException("Entity was null");
+		}
+
+		if (departmentService == null) {
+			throw new IllegalStateException("Service was null");
+		}
+
+		try {
+			departmentEntity = getFormData();
+
+			departmentService.saveOrUpdate(departmentEntity);
+			Utils.currentStage(event).close();
+		} catch (DbException e) {
+			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
+		}
+	}
+
+	@FXML
+	public void onBtnCancelAction(ActionEvent event) {
+		Utils.currentStage(event).close();
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
-	}
-
-	private void initializeNodes() {
-		Constraints.setTextFieldInteger(tfId);
-		Constraints.setTextFieldMaxLength(tfName, 30);
 	}
 
 	public void updateFormData() {
@@ -60,6 +81,20 @@ public class DepartmentFormController implements Initializable {
 
 		tfId.setText(String.valueOf(departmentEntity.getId()));
 		tfName.setText(departmentEntity.getName());
+	}
+
+	private void initializeNodes() {
+		Constraints.setTextFieldInteger(tfId);
+		Constraints.setTextFieldMaxLength(tfName, 30);
+	}
+
+	private Department getFormData() {
+		Department deparment = new Department();
+
+		deparment.setId(Utils.tryParseToInt(tfId.getText()));
+		deparment.setName(tfName.getText());
+
+		return deparment;
 	}
 
 }
