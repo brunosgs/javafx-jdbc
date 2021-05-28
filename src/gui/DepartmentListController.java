@@ -39,14 +39,15 @@ public class DepartmentListController implements Initializable {
 	private TableColumn<Department, String> tcName;
 
 	@FXML
-	private Button btNew;
+	private Button btnNew;
 	private ObservableList<Department> obsListDepartment;
 
 	@FXML
-	public void onBtNewAction(ActionEvent event) {
+	public void onBtnNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		
-		createDialogForm("/gui/DepartmentFormView.fxml", parentStage);
+		Department department = new Department();
+
+		createDialogForm(department, "/gui/DepartmentFormView.fxml", parentStage);
 	}
 
 	@Override
@@ -84,12 +85,18 @@ public class DepartmentListController implements Initializable {
 		tbDepartment.setItems(obsListDepartment);
 	}
 
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Department department, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
-			Stage dialogStage = new Stage();
+			// O getController() retorna o controlador associado a tela que foi carregada.
+			DepartmentFormController departmentFormController = loader.getController();
 			
+			departmentFormController.setDepartmentEntity(department);
+			departmentFormController.updateFormData();
+			
+			Stage dialogStage = new Stage();
+
 			dialogStage.setTitle("Enter Department data");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
