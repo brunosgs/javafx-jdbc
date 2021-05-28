@@ -1,6 +1,10 @@
 # Compiled class file
 *.class
 
+# Local configuration file (sdk path, etc)
+db.properties
+.properties
+
 # Log file
 *.log
 
