@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Department;
 import model.services.DepartmentService;
 
-public class DepartmentListController implements Initializable {
+public class DepartmentListController implements Initializable, DataChangeListener {
 	private DepartmentService departmentService;
 
 	@FXML
@@ -42,6 +43,10 @@ public class DepartmentListController implements Initializable {
 	private Button btnNew;
 	private ObservableList<Department> obsListDepartment;
 
+	public void setDepartmentService(DepartmentService departmentService) {
+		this.departmentService = departmentService;
+	}
+
 	@FXML
 	public void onBtnNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
@@ -55,23 +60,9 @@ public class DepartmentListController implements Initializable {
 		initializeNodes();
 	}
 
-	private void initializeNodes() {
-		tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		resizeTable();
-	}
-
-	public void setDepartmentService(DepartmentService departmentService) {
-		this.departmentService = departmentService;
-	}
-
-	/**
-	 * Método para redimensionar a tabela conforme o tamanho da tela principal.
-	 */
-	private void resizeTable() {
-		Stage stage = (Stage) Main.getMainScene().getWindow();
-
-		tbDepartment.prefHeightProperty().bind(stage.heightProperty());
+	@Override
+	public void onDataChanged() {
+		updateTableView();
 	}
 
 	public void updateTableView() {
@@ -85,17 +76,34 @@ public class DepartmentListController implements Initializable {
 		tbDepartment.setItems(obsListDepartment);
 	}
 
+	/**
+	 * Método para redimensionar a tabela conforme o tamanho da tela principal.
+	 */
+	private void resizeTable() {
+		Stage stage = (Stage) Main.getMainScene().getWindow();
+
+		tbDepartment.prefHeightProperty().bind(stage.heightProperty());
+	}
+
+	private void initializeNodes() {
+		tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
+		tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		resizeTable();
+	}
+
 	private void createDialogForm(Department department, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 			// O getController() retorna o controlador associado a tela que foi carregada.
 			DepartmentFormController departmentFormController = loader.getController();
-			
+
+			// Enjeta as dependências
 			departmentFormController.setDepartmentEntity(department);
 			departmentFormController.setDepartmentService(new DepartmentService());
+			departmentFormController.subscribeDataChangeListener(this);
 			departmentFormController.updateFormData();
-			
+
 			Stage dialogStage = new Stage();
 
 			dialogStage.setTitle("Enter Department data");
