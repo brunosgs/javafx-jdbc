@@ -1,8 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -17,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Seller;
@@ -35,7 +39,25 @@ public class SellerFormController implements Initializable {
 	private TextField tfName;
 
 	@FXML
+	private TextField tfEmail;
+
+	@FXML
+	private DatePicker dpBirthDate;
+
+	@FXML
+	private TextField tfBaseSalary;
+
+	@FXML
 	private Label lbErrorName;
+
+	@FXML
+	private Label lbErrorEmail;
+
+	@FXML
+	private Label lbErrorBirthDate;
+
+	@FXML
+	private Label lbErrorBaseSalary;
 
 	@FXML
 	private Button btnSave;
@@ -97,11 +119,23 @@ public class SellerFormController implements Initializable {
 
 		tfId.setText(String.valueOf(sellerEntity.getId()));
 		tfName.setText(sellerEntity.getName());
+		tfEmail.setText(sellerEntity.getEmail());
+
+		if (sellerEntity.getBirthDate() != null) {
+			dpBirthDate.setValue(LocalDateTime
+					.ofInstant(sellerEntity.getBirthDate().toInstant(), ZoneId.systemDefault()).toLocalDate());
+		}
+
+		Locale.setDefault(Locale.US);
+		tfBaseSalary.setText(String.format("%.2f", sellerEntity.getBaseSalary()));
 	}
 
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(tfId);
-		Constraints.setTextFieldMaxLength(tfName, 30);
+		Constraints.setTextFieldMaxLength(tfName, 70);
+		Constraints.setTextFieldMaxLength(tfEmail, 60);
+		Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
+		Constraints.setTextFieldDouble(tfBaseSalary);
 	}
 
 	private Seller getFormData() {
