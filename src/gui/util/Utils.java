@@ -34,6 +34,17 @@ public class Utils {
 	}
 
 	/**
+	 * Faz o parse de um String para um Double.
+	 */
+	public static Double tryParseToDouble(String str) {
+		try {
+			return Double.parseDouble(str);
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
+
+	/**
 	 * Formata a coluna da tabela que tem valores Date.
 	 */
 	public static <T> void formatTableColumnDate(TableColumn<T, Date> tableColumn, String format) {
@@ -85,7 +96,7 @@ public class Utils {
 	public static void formatDatePicker(DatePicker datePicker, String format) {
 		datePicker.setConverter(new StringConverter<LocalDate>() {
 			DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(format);
-			
+
 			{
 				datePicker.setPromptText(format.toLowerCase());
 			}
@@ -109,5 +120,5 @@ public class Utils {
 			}
 		});
 	}
-	
+
 }

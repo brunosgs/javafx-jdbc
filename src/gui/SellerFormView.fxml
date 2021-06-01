@@ -30,27 +30,27 @@
         </rowConstraints>
          <children>
             <Label text="Id" />
-            <Label text="Name" GridPane.rowIndex="1" />
             <TextField fx:id="tfId" editable="false" GridPane.columnIndex="1" />
+            <Label text="Name" GridPane.rowIndex="1" />
             <TextField fx:id="tfName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="lbErrorName" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="Email" GridPane.rowIndex="2" />
+            <TextField fx:id="tfEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lbErrorEmail" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label text="Birth Date" GridPane.rowIndex="3" />
+            <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="lbErrorBirthDate" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label text="Base Salary" GridPane.rowIndex="4" />
+            <TextField fx:id="tfBaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="lbErrorBaseSalary" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label text="Department" GridPane.rowIndex="5" />
+            <ComboBox fx:id="cbDepartment" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
                   <Button fx:id="btnSave" mnemonicParsing="false" onAction="#onBtnSaveAction" text="Save" />
                   <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onBtnCancelAction" text="Cancel" />
                </children>
             </HBox>
-            <Label text="Email" GridPane.rowIndex="2" />
-            <Label text="Birth Date" GridPane.rowIndex="3" />
-            <Label text="Base Salary" GridPane.rowIndex="4" />
-            <Label text="Department" GridPane.rowIndex="5" />
-            <TextField fx:id="tfEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="tfBaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="lbErrorEmail" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label fx:id="lbErrorBirthDate" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label fx:id="lbErrorBaseSalary" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <ComboBox fx:id="cbDepartment" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>
