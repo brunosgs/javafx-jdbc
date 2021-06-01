@@ -1,6 +1,6 @@
 # javafx-jdbc
 
-# :open_file_folder: Repositório do Projeto Final (Aplicação desktop com JavaFX e banco de dados MySQL com JDBC)
+# :open_file_folder: Repositório do Projeto (Aplicação desktop com JavaFX e banco de dados MySQL com JDBC)
 
 
 ## :pushpin: Sobre
