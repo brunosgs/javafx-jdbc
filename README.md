@@ -1,13 +1,11 @@
-# javafx-jdbc
-
-# :open_file_folder: RepositÛrio do Projeto (AplicaÁ„o desktop com JavaFX e banco de dados MySQL com JDBC)
+# :open_file_folder: Reposit√≥rio do Projeto (Aplica√ß√£o desktop com JavaFX e banco de dados MySQL com JDBC)
 
 
 ## :pushpin: Sobre
-Nesse repositÛrio vocÍ encontra um dos projetos do curso [Java COMPLETO ProgramaÁ„o Orientada a Objetos + Projetos](https://www.udemy.com/course/java-curso-completo/), no qual foram aplicado os conhecimentos adquiridos ao longo do curso de Java, JavaFX, SQL e padr„o de projeto MVC na criaÁ„o da aplicaÁ„o. O foco desse projeto foi integrar a interface gr·fica em FXML, modelando com o auxÌlio do Scene Builder, conectado os componentes com a linguagem Java e efetuando conexıes com o banco de dados MySQL utilizando o JDBC para inserÁ„o, busca, ediÁ„o, remoÁ„o dos dados no banco. A funÁıes que a aplicaÁ„o tem s„o:
+Nesse reposit√≥rio voc√™ encontra um dos projetos do curso [Java COMPLETO Programa√ß√£o Orientada a Objetos + Projetos](https://www.udemy.com/course/java-curso-completo/), no qual foram aplicado os conhecimentos adquiridos ao longo do curso de Java, JavaFX, SQL e padr√£o de projeto MVC na cria√ß√£o da aplica√ß√£o. O foco desse projeto foi integrar a interface gr√°fica em FXML, modelando com o aux√≠lio do Scene Builder, conectado os componentes com a linguagem Java e efetuando conex√µes com o banco de dados MySQL utilizando o JDBC para inser√ß√£o, busca, edi√ß√£o, remo√ß√£o dos dados no banco. A fun√ß√µes que a aplica√ß√£o tem s√£o:
 <ul>
-    <li>Cadastro/EdiÁ„o/Exclus„o de vendedores</li>
-    <li>Cadastro/EdiÁ„o/Exclus„o de departamentos</li>
+    <li>Cadastro/Edi√ß√£o/Exclus√£o de vendedores</li>
+    <li>Cadastro/Edi√ß√£o/Exclus√£o de departamentos</li>
 </ul>
 
 ## :hammer_and_wrench: Ferramentas
